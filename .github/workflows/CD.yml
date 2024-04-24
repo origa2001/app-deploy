@@ -30,3 +30,7 @@ jobs:
 
     - name: Get GKE credentials
       run: gcloud container clusters get-credentials cluster-2 --zone us-central1-c 
+
+    - name: Install Helm chart
+      run: |
+        helm install apache ./apache --set repository.image=origa2001/python-app --set repository.tag=2.0.0
