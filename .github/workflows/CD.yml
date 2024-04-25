@@ -1,8 +1,17 @@
 name: Deploy to GKE
 
 on:
-  push:
-    branches: ["main"]
+  workflow_dispatch: 
+    inputs:
+      docker_image: 
+        description: 'Provide image repo'
+        required: true
+        default: ''
+      docker_tag: 
+        description: 'Provide image tag'
+        required: true
+        default: ''
+
 
 
 jobs:
@@ -33,4 +42,4 @@ jobs:
 
     - name: Install Helm chart
       run: |
-        helm install apache ./apache --set repository.image=origa2001/python-app --set repository.tag=2.0.0
+        helm install apache ./apache --set repository.image=${{ secrets.docker_image }} --set repository.tag=${{ secrets.docker_tag }}
